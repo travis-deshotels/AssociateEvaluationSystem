@@ -15,29 +15,54 @@
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 <script
 	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-<link rel="stylesheet" th:href="@{/css/customCss.css}"
+<link rel="stylesheet" th:href="@{css/customCSS.css}"
 	href="../static/css/customCSS.css" />
 <title>Spring Security Example</title>
+
+
 </head>
 <body>
-	<div th:if="${param.error}">Invalid username and password.</div>
-	<div th:if="${param.logout}">You have been logged out.</div>
-	<form th:action="@{/login}" method="post">
-		<div>
-			<label> User Name : <input type="text" name="username" />
-			</label>
-		</div>
-		<div>
-			<label> Password: <input type="password" name="password" />
-			</label>
-		</div>
-		<div>
-			<input type="submit" value="Sign In" />
-		</div>
-	</form>
-	<a href="http://localhost:1993/AngularLogin/login.html">Core Login</a>
-	<p>
-		<a th:href="@{/home}">Assessment Home</a>
-	</p>
+
+<div class="bar-top"></div>
+
+  <div class="bar-mid">	
+	<div class="login-box text-center">
+		<img th:src="@{/images/revature_logo.png}"
+			src="../static/images/revature_logo.png" alt="Revature Logo"
+			style="width: 200px;">
+		
+		<form th:action="@{/login}" method="post" class="form">
+			<div class="form-group">
+				<label for="email">Username: 
+				<input type="text" class="form-control" name="username" id="username"></label>
+    			
+			</div>
+			<div>
+				<label for="password">Password: 
+				<input type="password" class="form-control" name="password" id="password"></label>
+    			
+			</div>
+			<div th:if="${param.logout}">You have been logged out.</div>
+			<div th:if="${param.error}">Invalid username and password.</div>
+			<div>
+				<input type="submit" class="btn btn-rev" value="Sign In" />
+			</div>
+		</form>
+		<a href="http://localhost:1993/AngularLogin/login.html">Core Login</a>
+		<p>
+			<a th:href="@{/home}">Assessment Home</a>
+		</p>
+	</div>
+  </div>
+
+<div class="bar-bot text-center">
+	<span class="horizon-line"></span> &copy; Copyright 2015, Revature
+		LLC., All Rights Reserved. Sharing or distribution of the contents of
+		this portal without explicit permission from Revature management is a
+		violation of employment terms with Revature.
+</div>
+	
+	
+	
 </body>
 </html>
