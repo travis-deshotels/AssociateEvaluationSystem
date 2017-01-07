@@ -21,7 +21,7 @@ html, body {
 
 h1 {
 	font-family: 'futura-heavy';
-	color: #474c55;
+	color: #ffffff;
 }
 
 p {
@@ -35,11 +35,14 @@ img {
 
 .bar-top {
 	background-color: #474c55;
+	color: #ffffff;
 	height: 15%;
 	top: 0;
 	left: 0;
 	width: 100%;
 	z-index: 8;
+	padding-top: 15px;
+	padding-left: 15%;
 }
 
 .bar-mid {
@@ -97,5 +100,5 @@ img {
 .btn-rev {
 	background-color: #f26925;
 	color: #ffffff;
-	padding-bottom: 15px;
+	margin-bottom: 15px;
 }
