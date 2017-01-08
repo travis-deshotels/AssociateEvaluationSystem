@@ -28,7 +28,7 @@
 
 <div class="container">
 
-<form class="form-revature" role="form" ng-submit="login()">
+<form class="form-revature" role="form">
     <div class="row">
         <label class="sr-only" for="input-email">email address</label>
         <input id="input-email" class="col-xs-12 col-md-12" type="email" placeholder="email address" ng-model="username" required autofocus>
@@ -38,7 +38,8 @@
         <input id="input-password" class="col-xs-12 col-md-12" type="password" placeholder="password" ng-model="password" required>
     </div>
     <div class="row">
-    	<input class="btn-revature" type="submit" value="login">
+    	<button class="btn-revature" ng-click="login()">login</button>
+    	<!-- <input class="btn-revature" type="submit" value="login"> -->
     </div>
 </form>
 <span ng-show="bunkCreds" class="span-creds">
@@ -51,6 +52,7 @@
 
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.5.9/angular.js"></script>
 <script type="text/javascript" src="app.js"></script>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-cookies.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,4 +1,4 @@
-var app = angular.module('AESCoreApp',[]);
+var app = angular.module('AESCoreApp',['ngCookies']);
 
 app.constant("SITE_URL", {
 	"HTTP" : "http://",
@@ -31,17 +31,46 @@ app.constant("ROLE", {
 	"CANDIDATE" : "ROLE_CANDIDATE"
 });
 
+app.factory('XSRFInterceptor', function ($cookies, $log) {
+
+    var XSRFInterceptor = {
+
+      request: function(config) {
+
+        var token = $cookies.get('XSRF-TOKEN');
+        
+        console.log('token: ' + token);
+
+        if (token) {
+          config.headers['X-XSRF-TOKEN'] = token;
+          $log.info("X-XSRF-TOKEN: " + token);
+        }
+
+        return config;
+      }
+    };
+    return XSRFInterceptor;
+});
+
+app.config(['$httpProvider', function ($httpProvider) {
+
+    $httpProvider.defaults.withCredentials = true;
+    $httpProvider.interceptors.push('XSRFInterceptor');
+
+}]);
+
 app.controller('LoginCtrl', function($scope, $http, SITE_URL, API_URL, ROLE) {
 	
 	$scope.login = function() {
 		console.log('LOGIN CALLLED');
 		makeUser($scope);
 		console.log('MAKE USER CALLED');
-		$http.post(SITE_URL.BASE + API_URL.BASE + API_URL.LOGIN,'', $scope.user)
+		$http.post(SITE_URL.BASE + API_URL.BASE + API_URL.LOGIN, $scope.user)
 		.then(function(response) {
 			console.log('INSIDE POST TO LOGIN');
 			$http.get(SITE_URL.BASE + API_URL.BASE + API_URL.AUTH)
 			.then(function(response) {
+				console.log(response);
 				if (response.data.authenticated) {
 					var authUser = {
 						username : response.data.principal.username,
@@ -51,7 +80,7 @@ app.controller('LoginCtrl', function($scope, $http, SITE_URL, API_URL, ROLE) {
 					$scope.authUser = authUser;
 					switch ($scope.authUser.authority) {
 					case ROLE.RECRUITER:
-						window.location = SITE_URL.VIEW_CANDIDATES;
+						//window.location = SITE_URL.VIEW_CANDIDATES;
 						break;
 					case ROLE.CANDIDATE:
 						$scope.candidateEmail = authUser.username;
@@ -123,6 +152,7 @@ app.controller('RegisterCanidateCtrl', function($scope,$location,$http,SITE_URL,
 		$scope.lastName = '';
 		$scope.email = '';
 		$scope.program = '';
+		
 	};
 
 	$scope.postRegister = function(canidateInfo) {
@@ -204,10 +234,10 @@ app.controller('CandidateViewCtrl', function($scope,$http, SITE_URL, API_URL, RO
 
 function makeUser($scope) {
 	var user = {
-			params: {
+//			params: {
 				username: $scope.username,
 				password: $scope.password
-			}
+//			}
 	};
 
 	$scope.user = user;
