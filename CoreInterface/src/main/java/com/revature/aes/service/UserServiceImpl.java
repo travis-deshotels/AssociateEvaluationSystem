@@ -28,6 +28,7 @@ import com.revature.aes.dao.UserDao;
 @Transactional
 public class UserServiceImpl implements UserService {
 	Logger log = Logger.getRootLogger();
+	private static final String PATTERN = "dd-MMM-yy";
 	
 	@Autowired
 	private UserDao dao;
@@ -63,19 +64,25 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
-	public Map<String,String> createCandidate(User candidate, String recruiterEmail) {
-		String pattern = "dd-MMM-yy";
-		SimpleDateFormat fmt = new SimpleDateFormat(pattern);
+	public Map<String,String> createCandidate(User usr, String recruiterEmail) {
+		SimpleDateFormat fmt = new SimpleDateFormat(PATTERN);
 		
-		int recruiterId = dao.findUserByEmail(recruiterEmail).getUserId();
-		
-		candidate.setRecruiterId(recruiterId);
-		candidate.setRole(role.findRoleByRoleTitle("Candidate"));
+		User candidate = new User();
+		candidate.setEmail(usr.getEmail());
 		
 		User existingCandidate = dao.findUserByEmail(candidate.getEmail());
 		if(existingCandidate != null) {
 			candidate = existingCandidate;
 		}
+
+		candidate.setFirstName(usr.getFirstName());
+		candidate.setLastName(usr.getLastName());
+		candidate.setFormat(usr.getFormat());
+		
+		int recruiterId = dao.findUserByEmail(recruiterEmail).getUserId();
+		
+		candidate.setRecruiterId(recruiterId);
+		candidate.setRole(role.findRoleByRoleTitle("Candidate"));
 		candidate.setDatePassIssued(fmt.format(new Date()));
 		dao.save(candidate);
 		
@@ -152,5 +159,31 @@ public class UserServiceImpl implements UserService {
 		User candidate = findUsersByRecruiter(email).get(index);
 		
 		dao.delete(candidate);
+	}
+
+	@Override
+	public void createRecruiter(String email) {
+		// 
+		createAdmin(email, "Recruiter");
+	}
+
+	@Override
+	public void createTrainer(String email) {
+		// 
+		createAdmin(email, "Trainer");
+	}
+	
+	private void createAdmin(String email, String adminRole){
+		SimpleDateFormat fmt = new SimpleDateFormat(PATTERN);
+		User recruiter = new User();
+		recruiter.setEmail(email);
+		recruiter.setFirstName("John");
+		recruiter.setLastName(adminRole);
+		
+		recruiter.setRole(role.findRoleByRoleTitle(adminRole));
+		recruiter.setDatePassIssued(fmt.format(new Date()));
+		dao.save(recruiter);
+		
+		security.createKnownSecurity(recruiter);
 	}
 }

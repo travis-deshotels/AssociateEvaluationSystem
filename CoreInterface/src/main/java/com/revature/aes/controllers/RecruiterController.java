@@ -3,6 +3,7 @@ package com.revature.aes.controllers;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.aes.beans.User;
 import com.revature.aes.locator.MailServiceLocator;
+import com.revature.aes.service.RoleService;
 import com.revature.aes.service.UserService;
 
 /**
@@ -27,9 +29,13 @@ import com.revature.aes.service.UserService;
  */
 @RestController
 public class RecruiterController {
+	Logger log = Logger.getRootLogger();
 	
 	@Autowired
 	private UserService userService;
+	
+	@Autowired
+	private RoleService roleService;
 	
 	@Autowired
 	private MailServiceLocator mailService;
@@ -50,7 +56,7 @@ public class RecruiterController {
 		Map<String,String> map = userService.createCandidate(candidate, email);
 		User u = userService.findUserByEmail(candidate.getEmail());
 		mailService.sendPassword(map.get("email"), map.get("link"), map.get("pass"));
-		System.out.println("USER: " + u);
+		log.debug("USER: " + u);
 		return u;
 	}
 	
@@ -116,4 +122,19 @@ public class RecruiterController {
 		userService.removeCandidate(email, index);
 	}
 
+	
+	@RequestMapping(value="recruiter/{email}/init",method = RequestMethod.POST)
+	public void initRecruiter(@PathVariable String email) {
+		userService.createRecruiter(email);
+	}
+	
+	@RequestMapping(value="trainer/{email}/init",method = RequestMethod.POST)
+	public void initTrainer(@PathVariable String email) {
+		userService.createTrainer(email);
+	}
+	
+	@RequestMapping(value="roles/init",method = RequestMethod.GET)
+	public void initRoles() {
+		roleService.initRoles();
+	}
 }
