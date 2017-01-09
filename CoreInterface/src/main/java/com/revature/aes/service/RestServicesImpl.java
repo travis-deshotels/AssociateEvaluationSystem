@@ -21,11 +21,11 @@ public class RestServicesImpl implements RestServices {
 	private AssessmentAuthService authService;
 
 	@Override
-	public Map<String,String> finalizeCandidate(User candidate, String pass) {
+	public String finalizeCandidate(User candidate, String pass) {
 		AssessmentRequestLoader loader = new AssessmentRequestLoader();
-		Map<String,String> map = new HashMap<>();
+//		Map<String,String> map = new HashMap<>();
 		int userId = candidate.getUserId();
-		String email = candidate.getEmail();
+//		String email = candidate.getEmail();
 		String category = candidate.getFormat();
 		
 		AssessmentRequest ar = loader.loadRequest(category);
@@ -43,9 +43,9 @@ public class RestServicesImpl implements RestServices {
 		
 		authService.save(auth);
 		
-		map.put("email", email);
-		map.put("link", auth.getUrlAuth());
-		map.put("pass", pass);
-		return map;
+//		map.put("email", email);
+//		map.put("link", auth.getUrlAuth());
+//		map.put("pass", pass);
+		return auth.getUrlAuth();
 	}
 }

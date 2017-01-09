@@ -17,9 +17,9 @@ import com.revature.aes.beans.AssessmentRequest;
  *
  */
 
-//@Service
+@Service
 public class AssessmentServiceLocatorImpl implements AssessmentServiceLocator {
-	private static final String URL = "http://localhost:8080/bank";
+	private static final String URL = "http://192.168.60.64:8080/TestBank";
 	private RestTemplate restTemplate = new RestTemplate();
 	Logger log = Logger.getRootLogger();
 	
@@ -40,7 +40,9 @@ public class AssessmentServiceLocatorImpl implements AssessmentServiceLocator {
 		log.debug(request);
 		log.debug(lines);
 		
-		ResponseEntity<AssessmentRequest> responseEntity = restTemplate.postForEntity(URL + "/user/RandomAssessment", request, AssessmentRequest.class);	
+		System.out.println("CALLING MATTHEWS SERVICE!");
+		System.out.println(request);
+		ResponseEntity<AssessmentRequest> responseEntity = restTemplate.postForEntity("http://192.168.60.64:8080/TestBank/user/RandomAssessment", request, AssessmentRequest.class);	
 		AssessmentRequest response = responseEntity.getBody();
 		log.debug(lines);
 		log.debug(response);

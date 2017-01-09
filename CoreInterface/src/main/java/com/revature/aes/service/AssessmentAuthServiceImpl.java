@@ -19,7 +19,6 @@ public class AssessmentAuthServiceImpl implements AssessmentAuthService {
 	private UserService uService;
 
 	@Override
-	@Transactional(propagation=Propagation.MANDATORY)
 	public AssessmentAuth save(AssessmentAuth link) {
 		AssessmentAuth assessmentAuth = dao.findByUserId(link.getUserId());
 		

@@ -38,8 +38,6 @@ public class UserServiceImpl implements UserService {
 	private AssessmentService asmt;
 	@Autowired
 	private RoleService role;
-	@Autowired
-	private RestServices client;
 
 	@Override
 	public User findUserByEmail(String email) {
@@ -64,7 +62,7 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	@Transactional(propagation=Propagation.REQUIRED)
-	public Map<String,String> createCandidate(User usr, String recruiterEmail) {
+	public String createCandidate(User usr, String recruiterEmail) {
 		SimpleDateFormat fmt = new SimpleDateFormat(PATTERN);
 		
 		User candidate = new User();
@@ -88,7 +86,7 @@ public class UserServiceImpl implements UserService {
 		
 		String pass = security.createSecurity(candidate);
 		
-		return client.finalizeCandidate(candidate, pass);
+		return pass;
 	}
 
 	@Override

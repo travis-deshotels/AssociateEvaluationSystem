@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.aes.beans.User;
 import com.revature.aes.locator.MailServiceLocator;
+import com.revature.aes.service.RestServices;
 import com.revature.aes.service.RoleService;
 import com.revature.aes.service.UserService;
 
@@ -39,7 +40,8 @@ public class RecruiterController {
 	
 	@Autowired
 	private MailServiceLocator mailService;
-	
+	@Autowired
+	private RestServices client;
 	
 	/**
 	 * This method tries to add a candidate to the system.
@@ -53,9 +55,10 @@ public class RecruiterController {
 	 */
 	@RequestMapping(value="/recruiter/{email}/candidates", method=RequestMethod.POST)
 	public User createCandidate(@RequestBody User candidate, @PathVariable String email){
-		Map<String,String> map = userService.createCandidate(candidate, email);
+		String pass = userService.createCandidate(candidate, email);
 		User u = userService.findUserByEmail(candidate.getEmail());
-		mailService.sendPassword(map.get("email"), map.get("link"), map.get("pass"));
+		String link = client.finalizeCandidate(u, pass);
+		mailService.sendPassword(u.getEmail(), link, pass);
 		log.debug("USER: " + u);
 		return u;
 	}
