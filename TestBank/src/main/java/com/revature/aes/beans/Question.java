@@ -25,9 +25,14 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "aes_question")
-public class Question implements Serializable {
+public class Question implements Serializable{
 
-	private static final long serialVersionUID = 4510024807505207528L;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5058123779059221101L;
+
+	//private static final long serialVersionUID = 4510024807505207528L;
 
 	@Id
 	@Column(name = "QUESTION_ID")

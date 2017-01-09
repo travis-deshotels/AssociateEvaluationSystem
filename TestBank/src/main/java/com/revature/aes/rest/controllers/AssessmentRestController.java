@@ -71,7 +71,7 @@ public class AssessmentRestController {
 		Assessment assessment = new Assessment(user, -1, 30, null, null, tmpl);
 		assessment = assServ.addNewAssessment(assessment);
 		
-		HttpHeaders headers = new HttpHeaders();
+		/*HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(MediaType.APPLICATION_JSON);
 
 		RequestEntity<Integer> request;
@@ -79,7 +79,9 @@ public class AssessmentRestController {
 		request = RequestEntity.post(new URI(URL + "/rest/link")).accept(MediaType.APPLICATION_JSON).body(assessment.getAssessmentId());
 		ResponseEntity<String> result = restTemplate.exchange(request, String.class);
 		
-		String link = result.getBody();
+		String link = result.getBody();*/
+		
+		String link = "www.itworked.com";
 		
 		assReq.setLink(link);
 

@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -41,23 +40,22 @@ public class SystemTemplate {
 		Set<Question> assessList = new HashSet<>();
 		List<Question> formatList = new ArrayList<>();
 		Set<TemplateQuestion> finalList = new HashSet<>();
-		Random rando = new Random();
 		
 		Category cat = (Category) cDao.getByName(catName);
 		
 		List<Question> filteredQuestions = (List<Question>) qDao.findAllQuestionsByCategory(cat);
 
-		if (multiChoice != 0) {
+		if ((multiChoice != 0) && (multiChoiceQuestionAdder(formatList, filteredQuestions).size()==0)) {
 
-			formatList = multiChoiceQuestionAdder(formatList, filteredQuestions);
-
+			formatList = multiChoiceQuestionAdder(formatList, filteredQuestions);			
+			
 			size = formatList.size() - 1; // subtract 1 so that this can be used
 											// to get an index for random
 											// question
-
+			
 			for (int i = 0; i <= multiChoice; i++) {
 				
-				int num = rando.nextInt(size);
+				int num = (int)(Math.random()*size);
 				assessList.add(formatList.remove(num));
 				size--;
 				if (size == 1) {
@@ -76,7 +74,7 @@ public class SystemTemplate {
 											// question
 
 			for (int i = 0; i <= multiSelect; i++) {
-				int num = rando.nextInt(size);
+				int num = (int)(Math.random()*size);
 				assessList.add(formatList.remove(num));
 				size--;
 				if (size == 1) {
@@ -95,7 +93,7 @@ public class SystemTemplate {
 											// question
 
 			for (int i = 0; i <= dragDrop; i++) {
-				int num = rando.nextInt(size);
+				int num = (int)(Math.random()*size);
 				assessList.add(formatList.remove(num));
 				size--;
 				if (size == 1) {
@@ -114,7 +112,7 @@ public class SystemTemplate {
 											// question
 
 			for (int i = 0; i <= codeSnip; i++) {
-				int num = rando.nextInt(size);
+				int num = (int)(Math.random()*size);
 				assessList.add(formatList.remove(num));
 				size--;
 				if (size == 1) {

@@ -13,10 +13,12 @@ import javax.persistence.Table;
 @Entity
 @Table(name="AES_CATEGORY")
 public class Category implements Serializable {
+	
 	/**
-	 * @serialVersionUID An auto-generated field that is used for serialization.
+	 * 
 	 */
-	private static final long serialVersionUID = 1609968850692884482L;
+	private static final long serialVersionUID = -8944376512869103521L;
+
 	/**
 	 * @cateogryId A unique Identifier for the Class.
 	 */
@@ -50,10 +52,6 @@ public class Category implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
-	}
-
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	@Override
