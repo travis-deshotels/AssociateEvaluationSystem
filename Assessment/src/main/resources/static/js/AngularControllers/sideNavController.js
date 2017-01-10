@@ -1,7 +1,7 @@
 app.controller('SideNavController', function($scope, $interval, $http) {
 
 	$scope.submitAssessment = function() {
-		answerData = {
+		var answerData = {
 			"id" : 1
 		};
 
@@ -11,17 +11,11 @@ app.controller('SideNavController', function($scope, $interval, $http) {
 	function postAssessment(answerData) {
 		$http({
 			method : 'POST',
-			url : '/Assessment/submitAssessment',
+			url : 'submitAssessment',
 			headers : {
 				'Content-Type' : 'application/json'
 			},
 			data : answerData
-		}).then(function(response) {
-			// First function handles success
-			console.log("Answers sent: " + response.data);
-		}, function(response) {
-			// Second function handles error
-			console.log("status code: " + response.status);
 		});
 	}
 });

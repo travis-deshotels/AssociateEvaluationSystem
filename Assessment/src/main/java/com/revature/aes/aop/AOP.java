@@ -51,14 +51,14 @@ public class AOP {
 		for (Class c : excepType) {
 			except.add(c.getSimpleName());
 		}
-		Object obj = new Object();
-		
+
 		// Surround proceed in try catch
 		try {
 			
-			obj = pjp.proceed();
+			pjp.proceed();
 			
 		} catch (Throwable e) {
+
 			Error.error("\nin Class:\t"
 					+ sign.getDeclaringTypeName()
 					+ "\nin Method:\t"
@@ -76,7 +76,7 @@ public class AOP {
 	 */
 	@Pointcut("execution(* *.grading.*(..))")
 	public void everything() {
-		
+		// Spring AOP Hook
 	}
 	
 }

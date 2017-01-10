@@ -1,7 +1,7 @@
 app.controller('ModalController', function($scope, $interval, $http) {
 	
 	$scope.submitAssessment = function(){
-		answerData = {"id":1};
+		var answerData = {"id":1};
 		
 		postAssessment(answerData);
 	}
@@ -9,16 +9,9 @@ app.controller('ModalController', function($scope, $interval, $http) {
 	function postAssessment(answerData){
 		$http({
 			method: 'POST',
-			url: 'http://localhost:1993/Assessment/rest/submitAssessment',
+			url: 'rest/submitAssessment',
 			headers: {'Content-Type': 'application/json'},
 			data: answerData
-		})
-		.then(function(response) {
-			//First function handles success
-			console.log("Answers sent: " + response.data);
-		}, function(response) {
-			//Second function handles error
-			console.log("status code: " + response.status);
 		});
 	}
 });

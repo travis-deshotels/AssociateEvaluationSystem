@@ -15,32 +15,18 @@ app.controller('AjaxController', function($scope, $http) {
 	    	
 	        $http({
 	            method: 'GET',
-	            url: '/Assessment/getAssessment',
+	            url: 'getAssessment',
 	            headers: {'Content-Type': 'application/json'},
 	            data: data
-	        })
-	        .success(function (data){
-	            // SETUP QUESTIONS AND STATE ARRAYS
-	            // START TIMER
-	            console.log("GET ASSESSMENT SUCCESS");
-	        })
-	        .error(function (response){
-	            console.log("Error Status: " + response);
 	        });
 	    }
 	    
 	    function postAssessmentData(data){
 	        $http({
 	            method: 'POST',
-	            url: '/Assessment/submitAssessment',
+	            url: 'submitAssessment',
 	            headers: {'Content-Type': 'application/json'},
 	            data: data
-	        })
-	        .success(function (data){
-	            console.log("Posted results");
-	        })
-	        .error(function (response){
-	            console.log("Error while submitting assessment");
 	        });
 	    }
 });

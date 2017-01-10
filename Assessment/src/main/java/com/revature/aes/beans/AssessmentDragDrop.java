@@ -13,17 +13,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Entity
 @Component
 @Table(name = "aes_assessment_drag_drop")
 public class AssessmentDragDrop implements Serializable {
-	
-	public AssessmentDragDrop() {
-		super();
-	}
 	
 	private static final long serialVersionUID = -6980285894791938854L;
 	
@@ -45,6 +40,10 @@ public class AssessmentDragDrop implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "drag_drop_id")
 	private DragDrop dragDrop;
+	
+	public AssessmentDragDrop() {
+		super();
+	}
 	
 	@Override
 	public String toString() {

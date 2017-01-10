@@ -1,17 +1,13 @@
 app.controller("dragController", function($scope) {
 	// DRAG AND DROP
 	$scope.dragControlListeners = {
-		accept : function(sourceItemHandleScope, destSortableScope) {
-			return boolean
+		itemMoved : function() {
+			// add 'event' to function() above if this is broken
 		},
-		itemMoved : function(event) {
-		},
-		orderChanged : function(event) {
-			
+		orderChanged : function() {
+			// add 'event' to function() above if this is broken
 		}
 	};
-
-	$scope.dragControlListeners1 = {};
 });
 
 app.controller('QuizNavController', function($scope, $rootScope) {
@@ -28,14 +24,11 @@ app.controller('QuizNavController', function($scope, $rootScope) {
     $scope.$watch(function(){
     	return $rootScope.states;
     }, function() {
-    	console.log("Saw, length: " + $rootScope.states.length);
 		$scope.array = [];
 		
 		for(var i=0; i < $rootScope.states.length/5; i++){
         	$scope.array.push(i);
-        	console.log("Tick");
         }
-		console.log("After loop");
 	});
 	
 	

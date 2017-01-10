@@ -4,16 +4,12 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Entity
@@ -34,17 +30,11 @@ public class DragDrop implements Serializable {
 	@Column(name = "correct_order")
 	private int correctOrder;
 
-	
-	/*@ManyToOne(fetch=FetchType.EAGER)
-	@JoinColumn(name="QUESTION_ID")
-	private Question questionId;*/
-	
 	@Column(name = "QUESTION_ID")
 	private Integer questionId;
 
 	public DragDrop() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -84,14 +74,4 @@ public class DragDrop implements Serializable {
 	public void setQuestionId(Integer questionId) {
 		this.questionId = questionId;
 	}
-
-	/*public Question getQuestionId() {
-		return questionId;
-	}
-
-	public void setQuestionId(Question questionId) {
-		this.questionId = questionId;
-	}*/
-	
-	
 }

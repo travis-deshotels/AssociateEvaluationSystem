@@ -4,18 +4,14 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Entity
@@ -43,7 +39,7 @@ public class Option implements Serializable {
 	/**
 	 * @correct A Integer value representing the correct answer for a question.
 	 *          Minimun value is 0, Maximun value is 1. 0 is equavalent to false
-	 *          while 1 is equavalent to true.
+	 *          while 1 is equivalent to true.
 	 */
 	@Min(value = 0)
 	@Max(value = 1)
@@ -54,12 +50,12 @@ public class Option implements Serializable {
 	 * @question The question associated with this class.
 	 */
 	
-	/*@ManyToOne(fetch = FetchType.EAGER) //?
-	@JoinColumn(name = "QUESTION_ID")
-	private Question question;*/
-	
 	@Column(name = "QUESTION_ID")
 	private Integer question;
+	
+	public Option() {
+		super();
+	}
 	
 	public Integer getOptionId() {
 		return optionId;
@@ -85,14 +81,6 @@ public class Option implements Serializable {
 		this.correct = correct;
 	}
 	
-	/*public Question getQuestion() {
-		return question;
-	}
-	
-	public void setQuestion(Question questionId) {
-		this.question = questionId;
-	}*/
-	
 	public Integer getQuestion() {
 		return question;
 	}
@@ -102,62 +90,9 @@ public class Option implements Serializable {
 	}
 
 	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((correct == null) ? 0 : correct.hashCode());
-		result = prime * result
-				+ ((optionId == null) ? 0 : optionId.hashCode());
-		result = prime * result
-				+ ((optionText == null) ? 0 : optionText.hashCode());
-		result = prime * result
-				+ ((question == null) ? 0 : question.hashCode());
-		return result;
-	}
-	
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Option other = (Option) obj;
-		if (correct == null) {
-			if (other.correct != null)
-				return false;
-		} else if (!correct.equals(other.correct))
-			return false;
-		if (optionId == null) {
-			if (other.optionId != null)
-				return false;
-		} else if (!optionId.equals(other.optionId))
-			return false;
-		if (optionText == null) {
-			if (other.optionText != null)
-				return false;
-		} else if (!optionText.equals(other.optionText))
-			return false;
-		if (question == null) {
-			if (other.question != null)
-				return false;
-		} else if (!question.equals(other.question))
-			return false;
-		return true;
-	}
-	
-	
-	
-	@Override
 	public String toString() {
 		return "Option [optionId=" + optionId + ", optionText=" + optionText + ", correct=" + correct + ", question="
 				+ question + "]";
 	}
 
-	public Option() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
 }

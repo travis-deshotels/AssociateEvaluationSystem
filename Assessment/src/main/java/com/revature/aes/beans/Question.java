@@ -17,7 +17,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Entity
@@ -35,43 +34,32 @@ public class Question implements Serializable {
 	@Column(name = "QUESTION_TEXT")
 	private String questionText;
 
-	
 	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "QUESTION_FORMAT_ID")
 	private Format format;
 
-	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "AES_QUESTION_TAG", 
-		joinColumns = @JoinColumn(name = "QUESTION_ID"), 
-		inverseJoinColumns = @JoinColumn(name = "TAG_ID"))
+	@JoinTable(name = "AES_QUESTION_TAG", joinColumns = @JoinColumn(name = "QUESTION_ID"), inverseJoinColumns = @JoinColumn(name = "TAG_ID"))
 	private Set<Tag> tags;
 
-	
 	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "AES_QUESTION_CATEGORY", 
-		joinColumns = @JoinColumn(name = "QUESTION_ID"), 
-		inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID"))
+	@JoinTable(name = "AES_QUESTION_CATEGORY", joinColumns = @JoinColumn(name = "QUESTION_ID"), inverseJoinColumns = @JoinColumn(name = "CATEGORY_ID"))
 	private Set<Category> category;
-	
-	
-	@OneToMany(fetch = FetchType.EAGER) //?
-	@JoinColumn(name="QUESTION_ID")
+
+	@OneToMany(fetch = FetchType.EAGER) // ?
+	@JoinColumn(name = "QUESTION_ID")
 	private Set<Option> multiChoice;
 
-	
 	@OneToMany(fetch = FetchType.EAGER)
-	@JoinColumn(name="QUESTION_ID")
+	@JoinColumn(name = "QUESTION_ID")
 	private Set<DragDrop> dragDrops;
 
-	
-	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name="QUESTION_ID")
-	private SnippetTemplate snippetTemplate;
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "QUESTION_ID")
+	private Set<SnippetTemplate> snippetTemplate;
 
 	public Question() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -137,11 +125,11 @@ public class Question implements Serializable {
 		this.dragDrops = dragDrops;
 	}
 
-	public SnippetTemplate getSnippetTemplate() {
+	public Set<SnippetTemplate> getSnippetTemplate() {
 		return snippetTemplate;
 	}
 
-	public void setSnippetTemplate(SnippetTemplate snippetTemplate) {
+	public void setSnippetTemplate(Set<SnippetTemplate> snippetTemplate) {
 		this.snippetTemplate = snippetTemplate;
 	}
 }
